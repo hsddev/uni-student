@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const app = new express();
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-const Student = require("./models/student");
 const router = require("./routes/students");
 
 app.use(bodyParser.json());
