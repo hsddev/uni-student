@@ -2,7 +2,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = new express();
+const bodyParser = require("body-parser");
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
 mongoose.connect(
@@ -20,24 +23,23 @@ const schema = new mongoose.Schema({
 
 const Student = mongoose.model("Student", schema);
 
-// insert new student
-app.get("/create/:name/:age", (req, res) => {
-    const firstStudent = new Student({
-        name: req.params.name,
-        age: req.params.age,
-    });
-
-    firstStudent.save().then(() => {
-        console.log("New student inserted");
-    });
-});
-
 // find
 app.get("/", (req, res) => {
     Student.find({}, (err, students) => {
         if (err) console.log(err);
         students.forEach((student) => console.log(student));
     });
+    res.render("index");
+});
+
+// insert new student
+app.post("/create", (req, res) => {
+    const firstStudent = new Student({
+        name: req.body.name,
+        age: req.body.age,
+    });
+
+    firstStudent.save().then(() => res.redirect("/"));
 });
 
 // delete
