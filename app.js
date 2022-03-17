@@ -39,12 +39,26 @@ app.get("/", (req, res) => {
 });
 
 // delete
-app.get("/delete", (req, res) => {
+app.get("/delete/:id", (req, res) => {
     Student.deleteOne({ _id: req.params.id }, (err) => {
         if (err) console.log(err);
         console.log("Student is deleted");
     });
 });
+
+// update
+app.get("/update/:id/:name/:age", (req, res) => {
+    Student.updateMany(
+        { _id: req.params.id },
+        { name: req.params.name, age: req.params.age },
+        { multi: true },
+        (err) => {
+            if (err) console.log(err);
+            console.log("Student data is updated");
+        }
+    );
+});
+
 app.listen(3000, () => {
     console.log("Start listening to port 3000");
 });
