@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = new express();
 
+app.set("view engine", "ejs");
+
 mongoose.connect(
     "mongodb+srv://jddev:test123@cluster0.g3xru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
