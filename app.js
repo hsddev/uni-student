@@ -16,7 +16,6 @@ mongoose.connect(
 );
 
 const schema = new mongoose.Schema({
-    studentID: Number,
     name: String,
     age: Number,
 });
@@ -24,11 +23,10 @@ const schema = new mongoose.Schema({
 const Student = mongoose.model("Student", schema);
 
 // insert new student
-app.get("/", (req, res) => {
+app.get("/create/:name/:age", (req, res) => {
     const firstStudent = new Student({
-        studentID: 1,
-        name: "Salaheddine",
-        age: 29,
+        name: req.params.name,
+        age: req.params.age,
     });
 
     firstStudent.save().then(() => {
