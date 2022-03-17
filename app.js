@@ -3,10 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = new express();
 
-app.get("/", (req, res) => {
-    res.send("<h1>Hello world!</h1>");
-});
-
 mongoose.connect(
     "mongodb+srv://jddev:test123@cluster0.g3xru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
@@ -34,6 +30,13 @@ app.get("/create/:name/:age", (req, res) => {
     });
 });
 
+// find
+app.get("/", (req, res) => {
+    Student.find({}, (err, students) => {
+        if (err) console.log(err);
+        students.forEach((student) => console.log(student));
+    });
+});
 app.listen(3000, () => {
     console.log("Start listening to port 3000");
 });
