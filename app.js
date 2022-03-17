@@ -37,6 +37,14 @@ app.get("/", (req, res) => {
         students.forEach((student) => console.log(student));
     });
 });
+
+// delete
+app.get("/delete", (req, res) => {
+    Student.deleteOne({ _id: req.params.id }, (err) => {
+        if (err) console.log(err);
+        console.log("Student is deleted");
+    });
+});
 app.listen(3000, () => {
     console.log("Start listening to port 3000");
 });
